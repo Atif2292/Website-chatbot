@@ -1,4 +1,12 @@
-import { Zap } from 'lucide-react'
+import { Facebook, Instagram, Linkedin, Mail, Phone, Twitter, Zap } from 'lucide-react'
+
+// Placeholder handles — swap for the real accounts once they exist.
+const socialLinks = [
+  { icon: Instagram, href: 'https://instagram.com/auronaai', label: 'Instagram' },
+  { icon: Twitter, href: 'https://twitter.com/auronaai', label: 'Twitter' },
+  { icon: Linkedin, href: 'https://linkedin.com/company/auronaai', label: 'LinkedIn' },
+  { icon: Facebook, href: 'https://facebook.com/auronaai', label: 'Facebook' },
+]
 
 // Footer columns from the reference site
 const columns = [
@@ -69,6 +77,39 @@ export default function Footer() {
             Enterprise-grade AI consulting and technology solutions — scaling
             businesses through intelligent automation and custom AI agents.
           </p>
+
+          <div className="mb-6 space-y-2 text-sm text-muted-foreground">
+            <a
+              href="tel:+916387745622"
+              className="flex items-center gap-2 transition-colors hover:text-primary"
+            >
+              <Phone className="h-4 w-4" />
+              +91 63877 45622
+            </a>
+            <a
+              href="mailto:mohdatif2291@gmail.com"
+              className="flex items-center gap-2 transition-colors hover:text-primary"
+            >
+              <Mail className="h-4 w-4" />
+              mohdatif2291@gmail.com
+            </a>
+          </div>
+
+          <div className="mb-6 flex gap-3">
+            {socialLinks.map(({ icon: Icon, href, label }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+              >
+                <Icon className="h-4 w-4" />
+              </a>
+            ))}
+          </div>
+
           <a href="#contact" className="btn-gradient !px-6 !py-2.5 text-sm">
             Book a Consultation
           </a>

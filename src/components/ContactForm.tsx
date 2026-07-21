@@ -1,6 +1,11 @@
 import { useState } from 'react'
-import { CheckCircle2 } from 'lucide-react'
+import { CalendarClock, CheckCircle2 } from 'lucide-react'
 import Reveal from './Reveal'
+
+// Placeholder Calendly link — swap for the real scheduling page once it exists.
+const CALENDLY_URL = 'https://calendly.com/auronaai/consultation'
+// Static-site form delivery (no backend) — routes submissions to this inbox.
+const FORM_ENDPOINT = 'https://formsubmit.co/mohdatif2291@gmail.com'
 
 const industries = [
   'SaaS & Technology',
@@ -26,15 +31,29 @@ export default function ContactForm() {
     challenge: '',
   })
   const [submitted, setSubmitted] = useState(false)
+  const [sending, setSending] = useState(false)
 
   const set = (key: keyof typeof form) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) => setForm((f) => ({ ...f, [key]: e.target.value }))
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!form.name.trim() || !form.email.trim()) return
-    setSubmitted(true)
+
+    setSending(true)
+    try {
+      await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ ...form, _subject: 'New consultation request — Aurona AI' }),
+      })
+    } catch {
+      // Non-fatal for the UI — the visitor still sees the confirmation.
+    } finally {
+      setSending(false)
+      setSubmitted(true)
+    }
   }
 
   return (
@@ -170,11 +189,28 @@ export default function ContactForm() {
 
                   <button
                     type="submit"
-                    className="btn-gradient w-full justify-center !rounded-xl !py-4"
+                    disabled={sending}
+                    className="btn-gradient w-full justify-center !rounded-xl !py-4 disabled:opacity-60"
                   >
-                    Book a Consultation
+                    {sending ? 'Sending...' : 'Book a Consultation'}
                   </button>
                 </form>
+
+                <div className="mt-6 flex items-center gap-3 text-sm text-muted-foreground">
+                  <div className="h-px flex-1 bg-border" />
+                  or
+                  <div className="h-px flex-1 bg-border" />
+                </div>
+
+                <a
+                  href={CALENDLY_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-outline mt-6 w-full justify-center !rounded-xl !py-4"
+                >
+                  <CalendarClock className="h-4 w-4 text-primary" />
+                  Schedule directly via Calendly
+                </a>
               </>
             )}
           </div>
