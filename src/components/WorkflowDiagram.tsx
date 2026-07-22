@@ -5,12 +5,12 @@
 // per the latest revision (was "Mandatory Approval" in the reference).
 
 const primary = 'hsl(217 91% 60%)'
-// More Dark Navy palette — deepened further per feedback.
-const borderColor = '#3A5A99'
-const glowColor = 'rgba(58, 90, 153, 0.25)'
+// Brighter medium blue palette — matched to reference screenshot.
+const borderColor = '#4A72B8'
+const glowColor = 'rgba(74, 114, 184, 0.32)'
 const dotGrey = 'hsl(215 12% 62%)'
-const cardFill = '#0A1730'
-const stepHighlightFill = '#0F2142'
+const cardFill = '#1E3A6E'
+const stepHighlightFill = '#28497F'
 const iconColor = 'hsl(150 6% 70%)'
 const foreground = 'hsl(210 40% 98%)'
 const muted = 'hsl(215 20% 68%)'
