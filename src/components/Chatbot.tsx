@@ -166,11 +166,21 @@ export default function Chatbot() {
 
     switch (step) {
       case 'query':
+        if (trimmed.length < 5 || !/[a-zA-Z]/.test(trimmed)) {
+          botSay(
+            "Could you tell me a bit more about what you're looking for? A short sentence is great.",
+          )
+          return
+        }
         setAnswers((a) => ({ ...a, query: trimmed }))
         botSay('Thank you. May I have your full name please?')
         setStep('name')
         break
       case 'name':
+        if (!/^[a-zA-Z][a-zA-Z '.-]{1,49}$/.test(trimmed) || !/[a-zA-Z]{2,}/.test(trimmed)) {
+          botSay("That doesn't look like a name — could you enter your full name?")
+          return
+        }
         setAnswers((a) => ({ ...a, name: trimmed }))
         botSay('Thank you. Please provide your email ID…')
         setStep('email')
@@ -187,11 +197,23 @@ export default function Chatbot() {
         setStep('phone')
         break
       case 'phone':
+        if (!/^[+\d][\d\s-]{6,19}$/.test(trimmed)) {
+          botSay(
+            "That doesn't look like a valid phone number — could you re-enter it (digits only, 7+ characters)?",
+          )
+          return
+        }
         setAnswers((a) => ({ ...a, phone: trimmed }))
         botSay('Thank you. May I know your company name and location?')
         setStep('company')
         break
       case 'company':
+        if (trimmed.length < 3 || !/[a-zA-Z]{2,}/.test(trimmed)) {
+          botSay(
+            "Could you share your company name and location a bit more clearly?",
+          )
+          return
+        }
         setAnswers((a) => ({ ...a, company: trimmed }))
         botSay(
           'Let me book a time slot for initial discussion. Please select one of the following options:',
