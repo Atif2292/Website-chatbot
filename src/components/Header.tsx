@@ -1,23 +1,35 @@
-import { useEffect, useState } from 'react'
-import { Menu, X, Zap } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { ChevronDown, Menu, X, Zap } from 'lucide-react'
+import { sitemap } from '../data/sitemap'
 
-const navLinks = [
-  { label: 'Services', href: '#services' },
-  { label: 'Technologies', href: '#technologies' },
-  { label: 'Solutions', href: '#solutions' },
-  { label: 'Insights', href: '#insights' },
-  { label: 'About Us', href: '#about' },
-]
+const navSections = sitemap.map((s) => ({
+  slug: s.slug,
+  label: s.label,
+  children: s.children,
+}))
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null)
+  const [openMenu, setOpenMenu] = useState<string | null>(null)
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  const openDropdown = (slug: string) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+    setOpenMenu(slug)
+  }
+
+  const scheduleClose = () => {
+    closeTimer.current = setTimeout(() => setOpenMenu(null), 150)
+  }
 
   return (
     <header className="fixed inset-x-0 top-0 z-40">
@@ -29,8 +41,7 @@ export default function Header() {
         }`}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          {/* Logo enlarged ~2x pending the official logo file */}
-          <a href="#home" className="flex flex-col gap-1">
+          <Link to="/" className="flex flex-col gap-1">
             <span className="flex items-center gap-3">
               <span className="flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-secondary">
                 <Zap className="h-10 w-10 fill-white text-white" />
@@ -40,32 +51,49 @@ export default function Header() {
               </span>
             </span>
             <span className="pl-[92px] text-sm font-semibold text-primary">
-              AI agents and consulting solutions.
+              Transforming enterprises with the power of AI
             </span>
-          </a>
+          </Link>
 
-          <nav className="hidden items-center gap-8 lg:flex">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+          <nav className="hidden items-center gap-5 xl:gap-6 lg:flex">
+            {navSections.map((section) => (
+              <div
+                key={section.slug}
+                className="relative"
+                onMouseEnter={() => openDropdown(section.slug)}
+                onMouseLeave={scheduleClose}
               >
-                {link.label}
-              </a>
+                <Link
+                  to={`/${section.slug}`}
+                  className="flex items-center gap-1 whitespace-nowrap text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                >
+                  {section.label}
+                  <ChevronDown className="h-3.5 w-3.5 shrink-0" />
+                </Link>
+
+                {openMenu === section.slug && (
+                  <div className="absolute left-1/2 top-full w-64 -translate-x-1/2 pt-3">
+                    <div className="rounded-2xl border border-border bg-card p-2 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                      {section.children.map((child) => (
+                        <Link
+                          key={child.slug}
+                          to={`/${section.slug}/${child.slug}`}
+                          className="block rounded-xl px-4 py-2.5 text-sm text-foreground transition-colors hover:bg-muted hover:text-primary"
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             ))}
           </nav>
 
-          <div className="hidden items-center gap-6 lg:flex">
-            <a
-              href="#contact"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-            >
-              Contact
-            </a>
-            <a href="#contact" className="btn-gradient !px-6 !py-2.5">
+          <div className="hidden shrink-0 items-center lg:flex">
+            <Link to="/contact" className="btn-gradient whitespace-nowrap !px-5 !py-2.5 !text-sm">
               Book a Consultation
-            </a>
+            </Link>
           </div>
 
           <button
@@ -78,28 +106,62 @@ export default function Header() {
         </div>
 
         {mobileOpen && (
-          <nav className="border-t border-border/60 bg-background/95 px-6 py-4 backdrop-blur-xl lg:hidden">
-            <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-                >
-                  {link.label}
-                </a>
+          <nav className="max-h-[calc(100vh-88px)] overflow-y-auto border-t border-border/60 bg-background/95 px-6 py-4 backdrop-blur-xl lg:hidden">
+            <div className="flex flex-col gap-1">
+              {navSections.map((section) => (
+                <div key={section.slug}>
+                  <div className="flex items-center justify-between">
+                    <Link
+                      to={`/${section.slug}`}
+                      onClick={() => setMobileOpen(false)}
+                      className="py-2.5 text-sm font-medium text-foreground transition-colors hover:text-primary"
+                    >
+                      {section.label}
+                    </Link>
+                    <button
+                      onClick={() =>
+                        setMobileExpanded((v) => (v === section.slug ? null : section.slug))
+                      }
+                      aria-label={`Toggle ${section.label} submenu`}
+                      className="p-2.5 text-muted-foreground"
+                    >
+                      <ChevronDown
+                        className={`h-4 w-4 transition-transform ${
+                          mobileExpanded === section.slug ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
+                  </div>
+                  {mobileExpanded === section.slug && (
+                    <div className="mb-2 flex flex-col gap-1 border-l border-border pl-4">
+                      {section.children.map((child) => (
+                        <Link
+                          key={child.slug}
+                          to={`/${section.slug}/${child.slug}`}
+                          onClick={() => setMobileOpen(false)}
+                          className="py-2 text-sm text-muted-foreground transition-colors hover:text-primary"
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
-              <a
-                href="#contact"
+              <Link
+                to="/contact"
                 onClick={() => setMobileOpen(false)}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                className="py-2.5 text-sm font-medium text-foreground transition-colors hover:text-primary"
               >
                 Contact
-              </a>
-              <a href="#contact" className="btn-gradient w-fit !px-6 !py-2.5">
+              </Link>
+              <Link
+                to="/contact"
+                onClick={() => setMobileOpen(false)}
+                className="btn-gradient mt-3 w-fit !px-6 !py-2.5"
+              >
                 Book a Consultation
-              </a>
+              </Link>
             </div>
           </nav>
         )}
