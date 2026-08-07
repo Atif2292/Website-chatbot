@@ -15,7 +15,6 @@ interface Message {
 }
 
 type Step =
-  | 'intro'
   | 'query'
   | 'name'
   | 'email'
@@ -47,14 +46,56 @@ const JOIN_METHODS = [
   'Telephone call',
 ]
 
-// Quick-reply intents shown after the greeting instead of free text,
-// so typed questions don't get misread as flow answers.
-const INTENTS = [
-  'Book a consultation',
-  'AI services & solutions',
-  'Automation for my business',
-  'Something else',
-]
+// Low-effort non-answers that pass basic length/letter checks but aren't
+// real answers to the question just asked.
+const JUNK_WORDS = new Set([
+  'test',
+  'testing',
+  'asdf',
+  'asdfg',
+  'qwerty',
+  'hi',
+  'hii',
+  'hello',
+  'hey',
+  'na',
+  'n/a',
+  'none',
+  'nothing',
+  'idk',
+  'dunno',
+  'xyz',
+  'abc',
+  'random',
+  'blah',
+  'lorem',
+  'ipsum',
+])
+
+// Catches keyboard-mashing: a single "word" with almost no vowels, or any
+// character repeated 4+ times in a row (e.g. "aaaa", "asdfasdf").
+function looksLikeGibberish(text: string) {
+  const words = text.trim().split(/\s+/)
+  if (/(.)\1{3,}/i.test(text.replace(/\s+/g, ''))) return true
+  if (words.length === 1) {
+    const w = words[0].toLowerCase()
+    const vowels = (w.match(/[aeiou]/g) || []).length
+    if (w.length >= 5 && vowels === 0) return true
+  }
+  return false
+}
+
+// Shared relevance gate for free-text steps: rejects blocklisted junk
+// words and keyboard-mashing before the field's own format check runs.
+function isIrrelevant(text: string, minWords = 1) {
+  const trimmed = text.trim()
+  const words = trimmed.split(/\s+/).filter(Boolean)
+  if (words.length < minWords) return true
+  if (words.every((w) => JUNK_WORDS.has(w.toLowerCase().replace(/[^a-z0-9/]/gi, '')))) {
+    return true
+  }
+  return looksLikeGibberish(trimmed)
+}
 
 // Next business days at fixed hours, formatted like Calendly slots.
 function generateSlots(count: number): Slot[] {
@@ -117,7 +158,7 @@ function buildCalendarUrl(a: Answers) {
 export default function Chatbot() {
   const [open, setOpen] = useState(false)
   const [input, setInput] = useState('')
-  const [step, setStep] = useState<Step>('intro')
+  const [step, setStep] = useState<Step>('query')
   const [answers, setAnswers] = useState<Answers>({
     query: '',
     name: '',
@@ -133,7 +174,7 @@ export default function Chatbot() {
     {
       role: 'assistant',
       content:
-        "Hi there! Thank you for contacting Aurona. I'm Sandra, your virtual assistant. How can I help you today?",
+        "Hi there! Thank you for contacting Aurona. I'm Sandra, your virtual assistant. Please type in a brief description of your query.",
     },
   ])
   const [typing, setTyping] = useState(false)
@@ -155,8 +196,7 @@ export default function Chatbot() {
     }, 800)
   }
 
-  const showOptions =
-    step === 'intro' || step === 'slot' || step === 'joinMethod'
+  const showOptions = step === 'slot' || step === 'joinMethod'
 
   const sendMessage = (text: string) => {
     const trimmed = text.trim()
@@ -166,9 +206,9 @@ export default function Chatbot() {
 
     switch (step) {
       case 'query':
-        if (trimmed.length < 5 || !/[a-zA-Z]/.test(trimmed)) {
+        if (trimmed.length < 5 || !/[a-zA-Z]/.test(trimmed) || isIrrelevant(trimmed, 3)) {
           botSay(
-            "Could you tell me a bit more about what you're looking for? A short sentence is great.",
+            "Could you tell me a bit more about what you're looking for? A short sentence describing your query would help.",
           )
           return
         }
@@ -177,7 +217,11 @@ export default function Chatbot() {
         setStep('name')
         break
       case 'name':
-        if (!/^[a-zA-Z][a-zA-Z '.-]{1,49}$/.test(trimmed) || !/[a-zA-Z]{2,}/.test(trimmed)) {
+        if (
+          !/^[a-zA-Z][a-zA-Z '.-]{1,49}$/.test(trimmed) ||
+          !/[a-zA-Z]{2,}/.test(trimmed) ||
+          isIrrelevant(trimmed)
+        ) {
           botSay("That doesn't look like a name — could you enter your full name?")
           return
         }
@@ -208,7 +252,7 @@ export default function Chatbot() {
         setStep('company')
         break
       case 'company':
-        if (trimmed.length < 3 || !/[a-zA-Z]{2,}/.test(trimmed)) {
+        if (trimmed.length < 3 || !/[a-zA-Z]{2,}/.test(trimmed) || isIrrelevant(trimmed, 2)) {
           botSay(
             "Could you share your company name and location a bit more clearly?",
           )
@@ -221,15 +265,6 @@ export default function Chatbot() {
         setStep('slot')
         break
     }
-  }
-
-  const pickIntent = (intent: string) => {
-    if (typing) return
-    setMessages((prev) => [...prev, { role: 'user', content: intent }])
-    botSay(
-      'I can help with that! Please type in a brief description of your query.',
-    )
-    setStep('query')
   }
 
   const pickSlot = (slot: Slot) => {
@@ -317,21 +352,6 @@ export default function Chatbot() {
                     />
                   ))}
                 </div>
-              </div>
-            )}
-
-            {/* Intent quick replies */}
-            {step === 'intro' && !typing && (
-              <div className="flex flex-col gap-2">
-                {INTENTS.map((intent) => (
-                  <button
-                    key={intent}
-                    onClick={() => pickIntent(intent)}
-                    className="rounded-xl border border-border bg-muted/60 px-4 py-2.5 text-left text-sm text-foreground transition-colors hover:border-primary hover:text-primary"
-                  >
-                    {intent}
-                  </button>
-                ))}
               </div>
             )}
 
