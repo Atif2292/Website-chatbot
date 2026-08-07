@@ -429,7 +429,7 @@ export default function Chatbot() {
                   : 'Type your message…'
               }
               disabled={showOptions}
-              className="flex-1 rounded-full border border-border bg-input px-4 py-2.5 text-sm placeholder:text-muted-foreground focus:border-primary focus:outline-none disabled:opacity-50"
+              className="flex-1 rounded-full border border-border bg-input px-4 py-2.5 text-base placeholder:text-muted-foreground focus:border-primary focus:outline-none disabled:opacity-50 sm:text-sm"
             />
             <button
               type="submit"
