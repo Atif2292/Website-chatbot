@@ -52,7 +52,12 @@ export default function App() {
             <Route
               key={section.slug}
               path={`/${section.slug}`}
-              element={<OverviewPage section={section} />}
+              element={
+                <OverviewPage
+                  section={section}
+                  layout={section.slug === 'products' ? 'scroll' : 'grid'}
+                />
+              }
             />
           ))}
           {sitemap.flatMap((section) =>
