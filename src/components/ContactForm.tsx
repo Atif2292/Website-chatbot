@@ -59,7 +59,7 @@ export default function ContactForm() {
   return (
     <section
       id="contact"
-      className="relative overflow-hidden border-t border-border/60 py-28"
+      className="relative overflow-hidden border-t border-border/60 py-14 md:py-28"
     >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/4 top-0 h-[400px] w-[400px] rounded-full bg-primary/10 blur-[140px]" />
@@ -69,7 +69,7 @@ export default function ContactForm() {
       <div className="relative mx-auto max-w-3xl px-6">
         <Reveal>
           <div className="mb-14 text-center">
-            <h2 className="mb-6 font-heading text-4xl font-bold leading-tight md:text-5xl">
+            <h2 className="mb-6 font-heading text-3xl font-bold leading-tight md:text-5xl">
               Ready to Accelerate Your{' '}
               <span className="gradient-text">AI Transformation?</span>
             </h2>

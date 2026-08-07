@@ -20,13 +20,13 @@ const transformations = [
 
 export default function Solutions() {
   return (
-    <section id="solutions" className="py-24">
+    <section id="solutions" className="py-14 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <Reveal>
         <div className="mb-14 grid gap-8 lg:grid-cols-2 lg:items-end">
           <div>
             <p className="section-eyebrow mb-4">The Challenge</p>
-            <h2 className="font-heading text-4xl font-bold leading-tight md:text-5xl">
+            <h2 className="font-heading text-3xl font-bold leading-tight md:text-5xl">
               Why Businesses Struggle to{' '}
               <span className="gradient-text">Adopt AI.</span>
             </h2>

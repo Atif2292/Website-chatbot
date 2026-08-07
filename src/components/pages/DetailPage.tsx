@@ -30,7 +30,7 @@ export default function DetailPage({
           </nav>
 
           <p className="section-eyebrow mb-4">{section.eyebrow}</p>
-          <h1 className="mb-6 font-heading text-4xl font-bold leading-tight md:text-5xl">
+          <h1 className="mb-6 font-heading text-3xl font-bold leading-tight md:text-5xl">
             {item.label}
           </h1>
           <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
@@ -53,18 +53,18 @@ export default function DetailPage({
               <h2 className="mb-6 font-heading text-2xl font-bold">
                 Related in {section.label}
               </h2>
-              <div className="grid gap-6 md:grid-cols-3">
+              <div className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3">
                 {related.map((r) => (
                   <Link
                     key={r.slug}
                     to={`/${section.slug}/${r.slug}`}
-                    className="glow-card group flex flex-col justify-between p-6"
+                    className="glow-card group flex flex-col justify-between p-4 sm:p-6"
                   >
-                    <h3 className="mb-2 font-heading text-lg font-semibold transition-colors group-hover:text-primary">
+                    <h3 className="mb-2 font-heading text-sm font-semibold transition-colors group-hover:text-primary sm:text-lg">
                       {r.label}
                     </h3>
-                    <span className="mt-4 flex h-9 w-9 items-center justify-center rounded-full border border-border transition-all group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground">
-                      <ArrowUpRight className="h-4 w-4" />
+                    <span className="mt-4 flex h-8 w-8 items-center justify-center rounded-full border border-border transition-all group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground sm:h-9 sm:w-9">
+                      <ArrowUpRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                     </span>
                   </Link>
                 ))}

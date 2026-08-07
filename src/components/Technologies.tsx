@@ -55,14 +55,14 @@ export default function Technologies() {
   return (
     <section
       id="technologies"
-      className="border-y border-border/60 bg-muted/30 py-24"
+      className="border-y border-border/60 bg-muted/30 py-14 md:py-24"
     >
       <div className="mx-auto max-w-7xl px-6">
         <Reveal>
         <div className="mb-14 grid gap-8 lg:grid-cols-2 lg:items-end">
           <div>
             <p className="section-eyebrow mb-4">Tech Stack</p>
-            <h2 className="font-heading text-4xl font-bold leading-tight md:text-5xl">
+            <h2 className="font-heading text-3xl font-bold leading-tight md:text-5xl">
               Our Technology Stack{' '}
               <span className="gradient-text">Expertise.</span>
             </h2>

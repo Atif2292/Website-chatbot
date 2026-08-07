@@ -26,7 +26,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="overflow-hidden border-y border-border/60 bg-muted/30 py-24"
+      className="overflow-hidden border-y border-border/60 bg-muted/30 py-14 md:py-24"
     >
       {/* Marquee strip (Brevon layout) */}
       <div className="mb-16 whitespace-nowrap">

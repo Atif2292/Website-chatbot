@@ -22,7 +22,7 @@ export default function OverviewPage({
           <div className="mb-14 grid gap-8 lg:grid-cols-2 lg:items-end">
             <div>
               <p className="section-eyebrow mb-4">{section.eyebrow}</p>
-              <h1 className="font-heading text-4xl font-bold leading-tight md:text-5xl">
+              <h1 className="font-heading text-3xl font-bold leading-tight md:text-5xl">
                 {section.heading}
               </h1>
             </div>
@@ -62,23 +62,23 @@ export default function OverviewPage({
           </Reveal>
         ) : (
           <Reveal delay={100}>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
               {section.children.map((child) => (
                 <Link
                   key={child.slug}
                   to={`/${section.slug}/${child.slug}`}
-                  className="glow-card group flex flex-col justify-between p-6"
+                  className="glow-card group flex flex-col justify-between p-4 sm:p-6"
                 >
                   <div>
-                    <h3 className="mb-2 font-heading text-xl font-semibold transition-colors group-hover:text-primary">
+                    <h3 className="mb-2 font-heading text-base font-semibold transition-colors group-hover:text-primary sm:text-xl">
                       {child.label}
                     </h3>
-                    <p className="text-sm leading-relaxed text-muted-foreground">
+                    <p className="text-xs leading-relaxed text-muted-foreground sm:text-sm">
                       {child.description}
                     </p>
                   </div>
-                  <span className="mt-6 flex h-10 w-10 items-center justify-center rounded-full border border-border transition-all group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground">
-                    <ArrowUpRight className="h-4 w-4" />
+                  <span className="mt-4 flex h-8 w-8 items-center justify-center rounded-full border border-border transition-all group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground sm:mt-6 sm:h-10 sm:w-10">
+                    <ArrowUpRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   </span>
                 </Link>
               ))}

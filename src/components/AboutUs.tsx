@@ -52,7 +52,7 @@ export default function AboutUs() {
   return (
     <section
       id="about"
-      className="border-t border-border/60 bg-muted/30 py-24"
+      className="border-t border-border/60 bg-muted/30 py-14 md:py-24"
     >
       <div className="mx-auto max-w-7xl px-6">
         {/* Statement + stat cards (Brevon about layout) */}
@@ -60,7 +60,7 @@ export default function AboutUs() {
           <Reveal>
             <div>
               <p className="section-eyebrow mb-4">About Us</p>
-              <h2 className="mb-6 font-heading text-3xl font-bold leading-snug md:text-4xl lg:text-[2.6rem]">
+              <h2 className="mb-6 font-heading text-2xl font-bold leading-snug sm:text-3xl md:text-4xl lg:text-[2.6rem]">
                 The Team Behind{' '}
                 <span className="gradient-text">Aurona AI.</span>
               </h2>
@@ -78,7 +78,7 @@ export default function AboutUs() {
             <div className="grid grid-cols-2 gap-6">
               {stats.map((s) => (
                 <div key={s.label} className="glow-card p-7">
-                  <div className="font-heading text-4xl font-bold text-primary">
+                  <div className="font-heading text-3xl font-bold text-primary">
                     {s.value}
                   </div>
                   <p className="mt-2 text-sm text-muted-foreground">

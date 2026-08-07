@@ -21,7 +21,7 @@ const steps = [
 
 export default function Process() {
   return (
-    <section className="border-y border-border/60 bg-muted/30 py-24">
+    <section className="border-y border-border/60 bg-muted/30 py-14 md:py-24">
       <div className="mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-[0.9fr_1.1fr]">
         {/* Stat visual (Brevon "Business Increase 3X") */}
         <Reveal className="h-full">
@@ -44,7 +44,7 @@ export default function Process() {
         <Reveal delay={120}>
         <div>
           <p className="section-eyebrow mb-4">Our working process</p>
-          <h2 className="mb-10 font-heading text-4xl font-bold md:text-5xl">
+          <h2 className="mb-10 font-heading text-3xl font-bold md:text-5xl">
             A Streamlined Process{' '}
             <span className="gradient-text">For Success.</span>
           </h2>

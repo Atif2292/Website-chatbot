@@ -24,12 +24,12 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="py-24">
+    <section className="py-14 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <Reveal>
         <div className="mb-14">
           <p className="section-eyebrow mb-4">Client testimonials</p>
-          <h2 className="font-heading text-4xl font-bold leading-tight md:text-5xl">
+          <h2 className="font-heading text-3xl font-bold leading-tight md:text-5xl">
             Client Experiences Inspire{' '}
             <span className="gradient-text">Enterprise Trust.</span>
           </h2>

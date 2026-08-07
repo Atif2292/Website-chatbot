@@ -52,14 +52,14 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="py-24">
+    <section id="services" className="py-14 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
         {/* Split header (Brevon layout) */}
         <Reveal>
           <div className="mb-14 grid gap-8 lg:grid-cols-2 lg:items-end">
             <div>
               <p className="section-eyebrow mb-4">Our Services</p>
-              <h2 className="font-heading text-4xl font-bold leading-tight md:text-5xl">
+              <h2 className="font-heading text-3xl font-bold leading-tight md:text-5xl">
                 End-to-End <span className="gradient-text">AI Solutions.</span>
               </h2>
             </div>
