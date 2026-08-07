@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ChevronDown, Menu, X, Zap } from 'lucide-react'
 import { sitemap } from '../data/sitemap'
@@ -22,23 +22,12 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null)
-  const [openMenu, setOpenMenu] = useState<string | null>(null)
-  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-
-  const openDropdown = (slug: string) => {
-    if (closeTimer.current) clearTimeout(closeTimer.current)
-    setOpenMenu(slug)
-  }
-
-  const scheduleClose = () => {
-    closeTimer.current = setTimeout(() => setOpenMenu(null), 150)
-  }
 
   return (
     <header className="fixed inset-x-0 top-0 z-40">
@@ -66,12 +55,7 @@ export default function Header() {
 
           <nav className="hidden items-center gap-5 xl:gap-6 lg:flex">
             {navSections.map((section) => (
-              <div
-                key={section.slug}
-                className="relative"
-                onMouseEnter={() => openDropdown(section.slug)}
-                onMouseLeave={scheduleClose}
-              >
+              <div key={section.slug} className="group relative">
                 <Link
                   to={`/${section.slug}`}
                   className="flex items-center gap-1 whitespace-nowrap text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
@@ -80,21 +64,19 @@ export default function Header() {
                   <ChevronDown className="h-3.5 w-3.5 shrink-0" />
                 </Link>
 
-                {openMenu === section.slug && (
-                  <div className="absolute left-1/2 top-full w-64 -translate-x-1/2 pt-3">
-                    <div className="rounded-2xl border border-border bg-card p-2 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-                      {section.children.map((child) => (
-                        <Link
-                          key={child.slug}
-                          to={childHref(section.slug, child.slug)}
-                          className="block rounded-xl px-4 py-2.5 text-sm text-foreground transition-colors hover:bg-muted hover:text-primary"
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
-                    </div>
+                <div className="invisible absolute left-1/2 top-full w-64 -translate-x-1/2 pt-3 opacity-0 transition-opacity duration-150 group-hover:visible group-hover:opacity-100">
+                  <div className="rounded-2xl border border-border bg-card p-2 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                    {section.children.map((child) => (
+                      <Link
+                        key={child.slug}
+                        to={childHref(section.slug, child.slug)}
+                        className="block rounded-xl px-4 py-2.5 text-sm text-foreground transition-colors hover:bg-muted hover:text-primary"
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
                   </div>
-                )}
+                </div>
               </div>
             ))}
           </nav>
