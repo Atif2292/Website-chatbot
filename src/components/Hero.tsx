@@ -31,7 +31,7 @@ export default function Hero() {
         </div>
 
         <div
-          className="animate-hero-in mx-auto w-full max-w-6xl"
+          className="animate-hero-in mx-auto hidden w-full max-w-6xl md:block"
           style={{ animationDelay: '200ms' }}
         >
           <WorkflowDiagram />
