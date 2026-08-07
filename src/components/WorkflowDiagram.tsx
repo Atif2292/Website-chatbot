@@ -177,9 +177,10 @@ export default function WorkflowDiagram() {
           WebkitMaskImage: 'radial-gradient(ellipse 85% 85% at 50% 45%, black, transparent)',
         }}
       />
+      <div className="relative overflow-x-auto">
       <svg
         viewBox="0 0 1520 630"
-        className="relative h-auto w-full"
+        className="h-auto w-full min-w-[820px]"
         role="img"
         aria-label="AI lead intelligence pipeline: inputs flow through nine stages supported by LLM providers and a memory and knowledge layer, ending in outputs"
         fontFamily="Inter, ui-sans-serif, system-ui"
@@ -278,6 +279,7 @@ export default function WorkflowDiagram() {
           )
         })}
       </svg>
+      </div>
     </div>
   )
 }

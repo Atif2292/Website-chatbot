@@ -293,9 +293,9 @@ export default function Chatbot() {
   const calendarReady = answers.joinMethod !== ''
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4">
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4 sm:bottom-6 sm:right-6">
       {open && (
-        <div className="flex h-[540px] w-[min(380px,calc(100vw-3rem))] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-[0_20px_60px_hsl(var(--background)/0.9),0_0_40px_hsl(var(--primary)/0.12)]">
+        <div className="fixed inset-0 z-50 flex h-full w-full flex-col overflow-hidden bg-card sm:static sm:h-[540px] sm:w-[min(380px,calc(100vw-3rem))] sm:rounded-2xl sm:border sm:border-border sm:shadow-[0_20px_60px_hsl(var(--background)/0.9),0_0_40px_hsl(var(--primary)/0.12)]">
           {/* Header */}
           <div className="flex items-center justify-between border-b border-border bg-gradient-to-r from-primary/15 via-transparent to-secondary/15 px-5 py-4">
             <div className="flex items-center gap-3">
@@ -443,8 +443,9 @@ export default function Chatbot() {
         </div>
       )}
 
-      {/* Launcher */}
-      <div className="flex items-center gap-3">
+      {/* Launcher — hidden on mobile while the full-screen chat is open,
+          since the header's own close button covers that already. */}
+      <div className={`items-center gap-3 ${open ? 'hidden sm:flex' : 'flex'}`}>
         {!open && (
           <div className="rounded-2xl border border-border bg-card px-4 py-2.5 text-sm font-semibold text-foreground shadow-[0_8px_28px_rgba(0,0,0,0.4)]">
             May I help you?

@@ -23,9 +23,9 @@ export default function Hero() {
         />
       </div>
 
-      <div className="relative mx-auto w-full max-w-7xl px-6">
+      <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6">
         <div className="animate-hero-in mx-auto mb-8 max-w-6xl text-center">
-          <h1 className="whitespace-nowrap font-heading font-bold leading-tight tracking-tight text-white [font-size:clamp(1rem,3.6vw,3.75rem)]">
+          <h1 className="whitespace-nowrap font-heading font-bold leading-tight tracking-tight text-white [font-size:min(4.1vw,3.75rem)]">
             Transforming enterprises with the power of AI
           </h1>
         </div>
