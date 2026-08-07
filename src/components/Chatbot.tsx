@@ -295,7 +295,7 @@ export default function Chatbot() {
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4 sm:bottom-6 sm:right-6">
       {open && (
-        <div className="fixed inset-0 z-50 flex h-full w-full flex-col overflow-hidden bg-card sm:static sm:h-[540px] sm:w-[min(380px,calc(100vw-3rem))] sm:rounded-2xl sm:border sm:border-border sm:shadow-[0_20px_60px_hsl(var(--background)/0.9),0_0_40px_hsl(var(--primary)/0.12)]">
+        <div className="fixed inset-0 z-50 flex h-[100dvh] w-full flex-col overflow-hidden bg-card sm:static sm:h-[540px] sm:w-[min(380px,calc(100vw-3rem))] sm:rounded-2xl sm:border sm:border-border sm:shadow-[0_20px_60px_hsl(var(--background)/0.9),0_0_40px_hsl(var(--primary)/0.12)]">
           {/* Header */}
           <div className="flex items-center justify-between border-b border-border bg-gradient-to-r from-primary/15 via-transparent to-secondary/15 px-5 py-4">
             <div className="flex items-center gap-3">
@@ -429,6 +429,16 @@ export default function Chatbot() {
                   : 'Type your message…'
               }
               disabled={showOptions}
+              onFocus={() => {
+                // On mobile the keyboard can cover the latest message until
+                // the view catches up — nudge it into view once it opens.
+                setTimeout(() => {
+                  scrollRef.current?.scrollTo({
+                    top: scrollRef.current.scrollHeight,
+                    behavior: 'smooth',
+                  })
+                }, 300)
+              }}
               className="flex-1 rounded-full border border-border bg-input px-4 py-2.5 text-base placeholder:text-muted-foreground focus:border-primary focus:outline-none disabled:opacity-50 sm:text-sm"
             />
             <button
