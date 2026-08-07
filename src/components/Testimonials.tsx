@@ -37,24 +37,24 @@ export default function Testimonials() {
         </Reveal>
 
         <Reveal delay={120}>
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3">
           {testimonials.map((t) => (
-            <div key={t.name} className="glow-card flex flex-col p-8">
-              <Quote className="mb-5 h-8 w-8 text-primary/60" />
-              <p className="mb-6 flex-1 text-sm leading-relaxed text-muted-foreground">
+            <div key={t.name} className="glow-card flex flex-col p-3 sm:p-8">
+              <Quote className="mb-2 h-5 w-5 text-primary/60 sm:mb-5 sm:h-8 sm:w-8" />
+              <p className="mb-3 flex-1 text-[11px] leading-relaxed text-muted-foreground sm:mb-6 sm:text-sm">
                 {t.quote}
               </p>
-              <div className="mb-4 flex gap-1">
+              <div className="mb-2 flex gap-1 sm:mb-4">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star
                     key={i}
-                    className="h-4 w-4 fill-accent text-accent"
+                    className="h-3 w-3 fill-accent text-accent sm:h-4 sm:w-4"
                   />
                 ))}
               </div>
-              <div className="border-t border-border pt-4">
-                <p className="font-heading font-semibold">{t.name}</p>
-                <p className="text-xs text-muted-foreground">{t.role}</p>
+              <div className="border-t border-border pt-2 sm:pt-4">
+                <p className="font-heading text-xs font-semibold sm:text-base">{t.name}</p>
+                <p className="text-[10px] text-muted-foreground sm:text-xs">{t.role}</p>
               </div>
             </div>
           ))}

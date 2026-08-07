@@ -65,32 +65,32 @@ export default function Pricing() {
         </Reveal>
 
         <Reveal delay={120}>
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3">
           {plans.map((p) => (
             <div
               key={p.name}
-              className={`glow-card relative flex flex-col p-8 ${
+              className={`glow-card relative flex flex-col p-3 sm:p-8 ${
                 p.featured
                   ? 'border-primary/60 shadow-[0_0_50px_hsl(var(--primary)/0.15)]'
                   : ''
               }`}
             >
               {p.featured && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-primary to-secondary px-4 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-white">
+                <span className="absolute -top-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-gradient-to-r from-primary to-secondary px-2 py-0.5 font-mono text-[8px] font-bold uppercase tracking-wider text-white sm:-top-3 sm:px-4 sm:py-1 sm:text-[10px]">
                   Most popular
                 </span>
               )}
-              <h3 className="font-heading text-xl font-semibold">{p.name}</h3>
-              <p className="mb-6 mt-2 text-sm text-muted-foreground">
+              <h3 className="font-heading text-xs font-semibold sm:text-xl">{p.name}</h3>
+              <p className="mb-2 mt-1 text-[10px] text-muted-foreground sm:mb-6 sm:mt-2 sm:text-sm">
                 {p.description}
               </p>
-              <ul className="mb-8 flex-1 space-y-3 border-t border-border pt-6">
+              <ul className="mb-3 flex-1 space-y-1.5 border-t border-border pt-2 sm:mb-8 sm:space-y-3 sm:pt-6">
                 {p.features.map((f) => (
                   <li
                     key={f}
-                    className="flex items-start gap-3 text-sm text-muted-foreground"
+                    className="flex items-start gap-1.5 text-[10px] text-muted-foreground sm:gap-3 sm:text-sm"
                   >
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+                    <Check className="mt-0.5 h-3 w-3 shrink-0 text-accent sm:h-4 sm:w-4" />
                     {f}
                   </li>
                 ))}
@@ -99,9 +99,9 @@ export default function Pricing() {
                 href="#contact"
                 className={`${
                   p.featured ? 'btn-gradient' : 'btn-outline'
-                } justify-center`}
+                } justify-center !px-2 !py-2 !text-xs sm:!px-7 sm:!py-3.5 sm:!text-sm`}
               >
-                {p.cta} <ArrowRight className="h-4 w-4" />
+                {p.cta} <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4" />
               </a>
             </div>
           ))}

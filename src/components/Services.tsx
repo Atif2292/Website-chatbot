@@ -77,22 +77,22 @@ export default function Services() {
               <a
                 key={s.number}
                 href="#contact"
-                className="group grid gap-6 py-9 transition-colors hover:bg-muted/40 md:grid-cols-[90px_auto_1fr_1.1fr_auto] md:items-center md:gap-8 md:px-6"
+                className="group grid grid-cols-[auto_auto_1fr] items-center gap-x-3 gap-y-1 py-4 transition-colors hover:bg-muted/40 md:grid-cols-[90px_auto_1fr_1.1fr_auto] md:gap-x-8 md:gap-y-6 md:py-9 md:px-6"
               >
-                <span className="font-mono text-lg text-muted-foreground">
+                <span className="font-mono text-xs text-muted-foreground md:text-lg">
                   {s.number}
                 </span>
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary/15 to-secondary/15 transition-colors group-hover:from-primary/25 group-hover:to-secondary/25">
-                  <s.icon className="h-6 w-6 text-primary" />
+                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary/15 to-secondary/15 transition-colors group-hover:from-primary/25 group-hover:to-secondary/25 md:h-12 md:w-12">
+                  <s.icon className="h-4 w-4 text-primary md:h-6 md:w-6" />
                 </span>
-                <h3 className="font-heading text-2xl font-semibold transition-colors group-hover:text-primary">
+                <h3 className="font-heading text-base font-semibold transition-colors group-hover:text-primary md:text-2xl">
                   {s.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
+                <p className="col-span-3 text-xs leading-relaxed text-muted-foreground md:col-span-1 md:text-sm">
                   {s.text}
                 </p>
-                <span className="flex h-12 w-12 items-center justify-center rounded-full border border-border transition-all group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground">
-                  <ArrowUpRight className="h-5 w-5" />
+                <span className="col-span-3 mt-1 flex h-8 w-8 items-center justify-center rounded-full border border-border transition-all group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground md:col-span-1 md:mt-0 md:h-12 md:w-12">
+                  <ArrowUpRight className="h-4 w-4 md:h-5 md:w-5" />
                 </span>
               </a>
             ))}

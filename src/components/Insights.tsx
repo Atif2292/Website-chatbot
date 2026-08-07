@@ -67,33 +67,33 @@ export default function Insights() {
         </Reveal>
 
         <Reveal delay={120}>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {posts.map((post) => (
             <article
               key={post.title}
               className="glow-card group flex flex-col overflow-hidden"
             >
               <div
-                className={`relative h-36 overflow-hidden bg-gradient-to-br ${post.bg} via-muted to-muted`}
+                className={`relative h-16 overflow-hidden bg-gradient-to-br sm:h-36 ${post.bg} via-muted to-muted`}
               >
                 <span
-                  className={`absolute left-4 top-4 rounded-full bg-background/80 px-3 py-1 font-mono text-[11px] uppercase tracking-wider backdrop-blur ${post.color}`}
+                  className={`absolute left-2 top-2 rounded-full bg-background/80 px-1.5 py-0.5 font-mono text-[8px] uppercase tracking-wider backdrop-blur sm:left-4 sm:top-4 sm:px-3 sm:py-1 sm:text-[11px] ${post.color}`}
                 >
                   {post.type}
                 </span>
               </div>
-              <div className="flex flex-1 flex-col p-7">
-                <h3 className="mb-3 font-heading text-xl font-semibold leading-snug transition-colors group-hover:text-primary">
+              <div className="flex flex-1 flex-col p-3 sm:p-7">
+                <h3 className="mb-1.5 font-heading text-xs font-semibold leading-snug transition-colors group-hover:text-primary sm:mb-3 sm:text-xl">
                   {post.title}
                 </h3>
-                <p className="mb-6 flex-1 text-sm leading-relaxed text-muted-foreground">
+                <p className="mb-2 flex-1 text-[10px] leading-relaxed text-muted-foreground sm:mb-6 sm:text-sm">
                   {post.text}
                 </p>
                 <a
                   href="#contact"
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary"
+                  className="inline-flex items-center gap-1 text-[10px] font-semibold text-primary sm:gap-1.5 sm:text-sm"
                 >
-                  Read more <ArrowRight className="h-4 w-4" />
+                  Read more <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4" />
                 </a>
               </div>
             </article>

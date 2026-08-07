@@ -91,19 +91,19 @@ export default function AboutUs() {
         </div>
 
         <Reveal delay={150}>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
             {team.map((m) => (
-              <div key={m.name} className="glow-card p-7">
-                <div className="mb-5 flex items-center gap-4">
-                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary font-heading text-lg font-bold text-white">
+              <div key={m.name} className="glow-card p-3 sm:p-7">
+                <div className="mb-2 flex items-center gap-2 sm:mb-5 sm:gap-4">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary font-heading text-xs font-bold text-white sm:h-14 sm:w-14 sm:text-lg">
                     {m.initials}
                   </span>
-                  <div>
-                    <h3 className="font-heading font-semibold">{m.name}</h3>
-                    <p className="text-sm text-primary">{m.role}</p>
+                  <div className="min-w-0">
+                    <h3 className="truncate font-heading text-xs font-semibold sm:text-base">{m.name}</h3>
+                    <p className="truncate text-[10px] text-primary sm:text-sm">{m.role}</p>
                   </div>
                 </div>
-                <p className="text-sm leading-relaxed text-muted-foreground">
+                <p className="text-[10px] leading-relaxed text-muted-foreground sm:text-sm">
                   {m.bio}
                 </p>
               </div>
