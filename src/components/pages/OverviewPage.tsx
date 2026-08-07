@@ -36,23 +36,27 @@ export default function OverviewPage({
           <Reveal delay={100}>
             <div className="-mx-6 flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-4">
               {section.children.map((child, i) => (
-                <div
+                <Link
                   key={child.slug}
+                  to={`/${section.slug}/${child.slug}`}
                   id={child.slug}
-                  className="glow-card flex w-[280px] shrink-0 scroll-mx-6 snap-start flex-col justify-between p-6"
+                  className="glow-card group flex w-[280px] shrink-0 scroll-mx-6 snap-start flex-col justify-between p-6"
                 >
                   <div>
                     <span className="mb-3 block font-mono text-xs text-muted-foreground">
                       {String(i + 1).padStart(2, '0')}
                     </span>
-                    <h3 className="mb-2 font-heading text-xl font-semibold">
+                    <h3 className="mb-2 font-heading text-xl font-semibold transition-colors group-hover:text-primary">
                       {child.label}
                     </h3>
                     <p className="text-sm leading-relaxed text-muted-foreground">
                       {child.description}
                     </p>
                   </div>
-                </div>
+                  <span className="mt-6 flex h-10 w-10 items-center justify-center rounded-full border border-border transition-all group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground">
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
+                </Link>
               ))}
             </div>
           </Reveal>

@@ -9,15 +9,6 @@ const navSections = sitemap.map((s) => ({
   children: s.children,
 }))
 
-// Products has its 6 agents on one scrolling page rather than separate
-// pages, so its dropdown/accordion links jump to an anchor on /products
-// instead of navigating to /products/:slug.
-function childHref(sectionSlug: string, childSlug: string) {
-  return sectionSlug === 'products'
-    ? `/products#${childSlug}`
-    : `/${sectionSlug}/${childSlug}`
-}
-
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -69,7 +60,7 @@ export default function Header() {
                     {section.children.map((child) => (
                       <Link
                         key={child.slug}
-                        to={childHref(section.slug, child.slug)}
+                        to={`/${section.slug}/${child.slug}`}
                         className="block rounded-xl px-4 py-2.5 text-sm text-foreground transition-colors hover:bg-muted hover:text-primary"
                       >
                         {child.label}
@@ -128,7 +119,7 @@ export default function Header() {
                       {section.children.map((child) => (
                         <Link
                           key={child.slug}
-                          to={childHref(section.slug, child.slug)}
+                          to={`/${section.slug}/${child.slug}`}
                           onClick={() => setMobileOpen(false)}
                           className="py-2 text-sm text-muted-foreground transition-colors hover:text-primary"
                         >

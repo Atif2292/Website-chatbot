@@ -2,14 +2,6 @@ import { Facebook, Instagram, Linkedin, Mail, Phone, Twitter, Zap } from 'lucide
 import { Link } from 'react-router-dom'
 import { sitemap } from '../data/sitemap'
 
-// Products has its 6 agents on one scrolling page rather than separate
-// pages, so its links jump to an anchor on /products instead of /products/:slug.
-function childHref(sectionSlug: string, childSlug: string) {
-  return sectionSlug === 'products'
-    ? `/products#${childSlug}`
-    : `/${sectionSlug}/${childSlug}`
-}
-
 // Placeholder handles — swap for the real accounts once they exist.
 const socialLinks = [
   { icon: Instagram, href: 'https://instagram.com/auronaai', label: 'Instagram' },
@@ -91,7 +83,7 @@ export default function Footer() {
               {col.links.map((l) => (
                 <li key={l.slug}>
                   <Link
-                    to={childHref(col.sectionSlug, l.slug)}
+                    to={`/${col.sectionSlug}/${l.slug}`}
                     className="text-sm text-muted-foreground transition-colors hover:text-primary"
                   >
                     {l.label}
